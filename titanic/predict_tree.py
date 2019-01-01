@@ -6,8 +6,8 @@ dtr =pd.read_csv('train.csv')
 dtes=pd.read_csv('test.csv')
 
 
-uti.clean(dtr)
-uti.clean(dtes)
+dtr=uti.clean(dtr)
+dtes=uti.clean(dtes)
 
 target = dtr["Survived"].values
 
@@ -34,7 +34,7 @@ print(scores.mean())
 
 """
 
-generalized_tree=tree.DecisionTreeClassifier(random_state=1,max_depth=10,min_samples_split=5)
+generalized_tree=tree.DecisionTreeClassifier(random_state=1,max_depth=15,min_samples_split=2)
 generalized_tree_=generalized_tree.fit(poly_features,target)
 
 scores =model_selection.cross_val_score(generalized_tree,poly_features,target,scoring="accuracy",cv=100)
@@ -46,7 +46,7 @@ print(scores.mean())
 dtes["Survived"]= generalized_tree.predict(poly_test_features)
 #print(dtes.Survived)
 res = dtes[output_features]
-res.to_csv("generalized_poly_decision_tree_submission.csv",index=False)
+res.to_csv("generalized_poly_decision_tree_submission3.csv",index=False)
 
 
 
