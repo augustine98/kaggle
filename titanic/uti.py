@@ -1,8 +1,11 @@
 def clean(data,test):
 
     data["Fare"]=data["Fare"].fillna(data["Fare"].dropna().median())
-    data["Age"]=data["Age"].fillna(data["Age"].dropna().median())
     data["Pclass"]=data["Pclass"].fillna(data["Pclass"].dropna().median())
+
+    if(test== False):
+        data["Age"]=data["Age"].fillna(data["Age"].dropna().median())
+
     
     
     data.loc[data["Sex"]=="male","Sex"]=0
@@ -26,15 +29,20 @@ def clean(data,test):
                 data["Name_Title"][i] ="Rare"
     
     title["Rare"]= 4
+    data.Name_Title = data.Name_Title.map(title)
 
 
-    data.Name_Title = data.Name_Title.ma(title)
-
+    data["Name_Length"]= data.Name.apply(lambda x : len(x))
 
 
 
     data=data.drop(['Name'],axis=1)
+
+    
+    data['Ticket_Len'] = data['Ticket'].apply(lambda x: len(x))
     data=data.drop(['Ticket'],axis=1)
+
+
     data=data.drop(['Cabin'],axis=1)
 
 

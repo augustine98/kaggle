@@ -18,6 +18,17 @@ X_ts = pd.read_csv('test.csv')
 pId_tr, X_train,y_train =uti.clean(X_tr,False)
 pId_ts, X_test =uti.clean(X_ts,True)
 
+# missing values in the test set filled with median from the training set
+X_test["Age"]=X_test["Age"].fillna(X_train["Age"].dropna().median())
+X_test["Age_Class"]=X_test["Age"]*X_test["Pclass"]
+
+
+
+
+
+
+
+
 print( " Train Size ", X_train.shape)
 print( " Train Size ", y_train.shape)
 print( " Test Size ", X_test.shape)
@@ -32,13 +43,14 @@ print(X_test.head())
 model = RandomForestClassifier(criterion = "gini", 
                                        min_samples_leaf = 1, 
                                        min_samples_split = 10,   
-                                       n_estimators=100, 
+                                       n_estimators=700, 
                                        max_features='auto', 
                                        oob_score=True, 
                                        random_state=1, 
                                        n_jobs=-1)
 model.fit(X_train,y_train)
 predictions = model.predict(X_test)
+print("%.4f" % model.oob_score_)
 
 """
 print(X_train.head())
@@ -47,7 +59,7 @@ print(X_test.head())
 print(y_test.head())
 """
 
-print(predictions)
+#print(predictions)
 
 #scor = [predictions==y_test]  
 
@@ -66,4 +78,4 @@ df2["PassengerId"]=pId_ts
 out = df2[["PassengerId","Survived"]]
 out.to_csv("final.csv",index=False)
 
-print(df2)
+#print(out)

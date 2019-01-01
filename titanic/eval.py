@@ -25,12 +25,12 @@ c=[0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1,
        1, 0, 0, 1]
 a=d1.Survived
 b=d2.Survived
-"""
+
 cnt =0
 for i in range(0,len(d1)):
-    if(a[i]==c[i]):
+    if(b[i]==c[i]):
         cnt+=1
-"""
-d2.Survived=c
-d2.to_csv('final.csv',index=False)
-#print(cnt/len(a))
+
+#d2.Survived=c
+#d2.to_csv('final.csv',index=False)
+print(cnt/len(a))
